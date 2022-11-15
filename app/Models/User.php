@@ -6,11 +6,61 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * User roles
+     *
+     * @var array
+     */
+    public const ROLES = [
+        'admin' => 0,
+        'citizen' => 1,
+        'technician' => 2,
+        'city-admin' => 3,
+    ];
+
+    /** Create a new citizen from request.
+     *
+     * Doesn't save it into the database. Transforms password into hash.
+     * @param $request
+     * @return User
+     */
+    public static function createCitizen($request): User
+    {
+        $user = new User();
+        $user->fill($request->all());
+        $user->setRole('citizen');
+        $user->password = Hash::make($request->password);
+        return $user;
+    }
+
+    /** Get role id
+     *
+     * @param $role string
+     * @return int|mixed role_id or null
+     */
+    public static function getRoleId($role) {
+        return self::ROLES[$role];
+    }
+
+    /** Set user's role
+     *
+     * @param $role string the name of the role that should be assigned
+     * @return void
+     */
+    public function setRole($role)
+    {
+        $roleId = self::getRoleId($role);
+        if ($roleId) {
+            $this->role_id = $roleId;
+        }
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +70,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
     ];
 
     /**
