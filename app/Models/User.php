@@ -13,10 +13,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * User roles
+    /** User role's
      *
-     * @var array
+     * @var int[]
      */
     public const ROLES = [
         'admin' => 0,
@@ -45,7 +44,8 @@ class User extends Authenticatable
      * @param $role string
      * @return int|mixed role_id or null
      */
-    public static function getRoleId($role) {
+    public static function getRoleId($role)
+    {
         return self::ROLES[$role];
     }
 
@@ -90,4 +90,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'author_id', 'id');
+    }
 }
