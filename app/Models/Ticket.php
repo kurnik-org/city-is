@@ -43,4 +43,9 @@ class Ticket extends Model
     {
         return $this->hasMany(ServiceRequest::class);
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment', 'commentable');
+    }
 }
