@@ -52,4 +52,10 @@ class ServiceRequest extends Model
     {
         return $this->belongsTo(User::class, 'technician_id', 'id');
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment', 'commentable');
+    }
+
 }

@@ -21,7 +21,7 @@ class TicketSeeder extends Seeder
         $lamp = new Ticket(
             [
                 'title' => 'Broken lamp',
-                'description' => 'Please, fix it.'
+                'description' => 'Street: Coastline Avenue.'
             ]
         );
         $lamp->author_id = $chris->id;

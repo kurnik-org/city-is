@@ -104,4 +104,8 @@ class User extends Authenticatable
             return $this->hasOne(ServiceRequest::class, 'city_admin_id', 'id');
         }
     }
+
+    public function comments() {
+        return $this->hasMany(Comment::class, 'author_id', 'id');
+    }
 }
