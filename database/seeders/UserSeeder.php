@@ -42,5 +42,21 @@ class UserSeeder extends Seeder
         ]);
         $mia->setRole('citizen');
         $mia->save();
+
+        $jack = new User([
+            'name' => 'Jack',
+            'email' => 'jack@email.com',
+            'password' => Hash::make('password'),
+        ]);
+        $jack->setRole('technician');
+        $jack->save();
+
+        $zoe = new User([
+            'name' => 'Zoe',
+            'email' => 'zoe@email.com',
+            'password' => Hash::make('password'),
+        ]);
+        $zoe->setRole('city_admin');
+        $zoe->save();
     }
 }

@@ -38,4 +38,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class, 'author_id', 'id');
     }
+
+    public function service_requests()
+    {
+        return $this->hasMany(ServiceRequest::class);
+    }
 }
