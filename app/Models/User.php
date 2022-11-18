@@ -62,6 +62,15 @@ class User extends Authenticatable
         }
     }
 
+    /** Gets user's role.
+     *
+     * @return int
+     */
+    public function getRole()
+    {
+        return $this->role_id;
+    }
+
     /**
      * The attributes that are mass assignable.
      *

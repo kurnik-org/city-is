@@ -15,9 +15,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if (Auth::user()->role_id == User::getRoleId('citizen'))
                     <x-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
                         {{ __('Report an issue') }}
                     </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -73,9 +75,11 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @if (Auth::user()->role_id == User::getRoleId('citizen'))
             <x-responsive-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
                 {{ __('Report an issue') }}
             </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
