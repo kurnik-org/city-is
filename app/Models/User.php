@@ -21,7 +21,7 @@ class User extends Authenticatable
         'admin' => 0,
         'citizen' => 1,
         'technician' => 2,
-        'city-admin' => 3,
+        'city_admin' => 3,
     ];
 
     /** Create a new citizen from request.
@@ -94,5 +94,14 @@ class User extends Authenticatable
     public function tickets()
     {
         return $this->hasMany(Ticket::class, 'author_id', 'id');
+    }
+
+    public function service_requests()
+    {
+        if ($this->role_id == self::getRoleId('technician')) {
+            return $this->hasOne(ServiceRequest::class, 'technician_id', 'id');
+        } else {
+            return $this->hasOne(ServiceRequest::class, 'city_admin_id', 'id');
+        }
     }
 }
