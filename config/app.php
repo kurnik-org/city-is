@@ -209,7 +209,9 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'User' => App\Models\User::class, # So I can access getRoleId() in Blade templates
+        'User' => App\Models\User::class, # So we can access getRoleId() in Blade templates
+        'Ticket' => App\Models\Ticket::class, # So we can access getStateAsUserFriendlyString() in Blade templates
+        'ServiceRequest' => App\Models\ServiceRequest::class,
     ])->toArray(),
 
 ];

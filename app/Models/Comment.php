@@ -17,6 +17,8 @@ class Comment extends Model
     protected $fillable = [
         'author_id',
         'text',
+        'commentable_type',
+        'commentable_id',
     ];
 
     public function author()

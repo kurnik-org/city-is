@@ -25,9 +25,37 @@ class Ticket extends Model
         return self::STATES[$state];
     }
 
+    /** Get state as a user-friendly string.
+     *
+     * @param $stateId int
+     * @return string
+     */
+    public static function getStateAsUserFriendlyString($stateId): string
+    {
+        if ($stateId == 0) {
+            return 'Reported';
+        }
+
+        if ($stateId == 1) {
+            return 'Work in progress';
+        }
+
+        return 'Solved';
+    }
+
+    /** Gets ticket's state.
+     *
+     * @return int
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
     protected $fillable = [
         'title',
         'description',
+        'state',
     ];
 
     protected $attributes = [

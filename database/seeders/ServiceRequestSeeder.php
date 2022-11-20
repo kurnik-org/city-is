@@ -16,13 +16,14 @@ class ServiceRequestSeeder extends Seeder
      */
     public function run()
     {
+        $ticket = Ticket::where('title', 'Broken lamp')->first();
         $request = new ServiceRequest([
             'city_admin_id' => User::where('email', 'zoe@email.com')->first()->id,
             'technician_id' => User::where('email', 'jack@email.com')->first()->id,
-            'ticket_id' => Ticket::where('title', 'Broken lamp')->first()->id,
-            'description' => 'This is definitely our #1 priority right now.',
+            'ticket_id' => $ticket->id,
+            'state' => 0,
+            'title' => 'SR1 for ticket #1',
         ]);
-        $request->setState('assigned');
         $request->save();
     }
 }

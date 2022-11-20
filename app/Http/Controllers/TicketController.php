@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\ServiceRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -37,25 +39,44 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Ticket::class);
+
         $validated = $request->validate([
             'title' => 'required|string|max:128',
             'description' => 'required|string'
         ]);
 
-        $request->user()->tickets()->create($validated);
+        $ticket_id = $request->user()->tickets()->create($validated)->id;
 
-        return redirect(route('tickets.index'));
+        return redirect(route('tickets.show', $ticket_id));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $ticket_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($ticket_id)
     {
-        //
+        # TODO: Add authorization. Only citizen who started the ticket can see it?
+
+        $ticket = Ticket::find($ticket_id);
+
+        if (!$ticket)
+        {
+            abort(404, 'Ticket not found.');
+        }
+
+        $sorted_comments = $ticket->comments->sortByDesc(function ($created_at) {
+            return $created_at;
+        })->values()->all();
+
+
+        return view('tickets.show', [
+            'ticket' => $ticket,
+            'comments' => $sorted_comments,
+        ]);
     }
 
     /**
@@ -78,7 +99,29 @@ class TicketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->has('submit_close_ticket')) {
+            $ticket = Ticket::find($id);
+
+            $ticket->state = Ticket::getStateId('fixed');
+            $ticket->save();
+
+            # TODO: Is this the right way? (and effective)
+            foreach ($ticket->service_requests as $sr)
+            {
+                $sr->state = 1; # TODO: Method for getting state NR? ENUM?
+                $sr->save();
+            }
+
+            $sorted_comments = $ticket->comments->sortByDesc(function ($created_at) {
+                return $created_at;
+            })->values()->all();
+
+
+            return view('tickets.show', [
+                'ticket' => $ticket,
+                'comments' => $sorted_comments,
+            ]);
+        }
     }
 
     /**

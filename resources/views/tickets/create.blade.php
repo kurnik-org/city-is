@@ -18,8 +18,9 @@
                     id="title"
                     name="title"
                     placeholder="{{ __('What\'s the problem?') }}"
+                    value="{{ old('title') }}"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                >{{ old('title') }}</input>
+                />
                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
             </div>
 
