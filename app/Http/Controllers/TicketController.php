@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\PhotoAttachment;
 use App\Models\ServiceRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
@@ -43,10 +44,25 @@ class TicketController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:128',
-            'description' => 'required|string'
+            'description' => 'required|string',
         ]);
 
         $ticket_id = $request->user()->tickets()->create($validated)->id;
+
+        # TODO: Add validators
+        if ($request->hasFile('photo_attachments'))
+        {
+            foreach ($request->file('photo_attachments') as $photo)
+            {
+                $path = $photo->store('public/photo_attachments/'.$ticket_id);
+
+                $data = new PhotoAttachment([
+                    'ticket_id' => $ticket_id,
+                    'filepath' => $path,
+                ]);
+                $data->save();
+            }
+        }
 
         return redirect(route('tickets.show', $ticket_id));
     }
