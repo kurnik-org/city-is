@@ -41,8 +41,8 @@
                         name="state"
                         id="state"
                         class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm flex-shrink-20">
-                        <option value="0" <?php echo ($sr->state == 0)?"selected":""; ?>>{{ ServiceRequest::getStateAsUserFriendlyString(0) }}</option>
-                        <option value="1" <?php echo ($sr->state == 1)?"selected":""; ?>>{{ ServiceRequest::getStateAsUserFriendlyString(1) }}</option>
+                        <option value="{{ ServiceRequestStateEnum::ASSIGNED->value }}" <?php echo ($sr->getState() == ServiceRequestStateEnum::ASSIGNED)?"selected":""; ?>>{{ ServiceRequestStateEnum::ASSIGNED->user_friendly_string() }}</option>
+                        <option value="{{ ServiceRequestStateEnum::CLOSED->value }}" <?php echo ($sr->getState() == ServiceRequestStateEnum::CLOSED)?"selected":""; ?>>{{ ServiceRequestStateEnum::CLOSED->user_friendly_string() }}</option>
                     </select>
                 </div>
                 <div class="flex items-center">

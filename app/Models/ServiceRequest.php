@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\ServiceRequestStateEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ServiceRequest extends Model
 {
     use HasFactory;
-
-    public const STATES = [
-        'assigned' => 0,
-        'closed' => 1,
-    ];
 
     /**
      * The attributes that are mass assignable.
@@ -27,39 +23,29 @@ class ServiceRequest extends Model
         'state'
     ];
 
-    /** Get state as a user-friendly string.
+    /** Sets request's state.
      *
-     * @param $stateId int
-     * @return string
      */
-    public static function getStateAsUserFriendlyString($stateId): string
-    {
-        if ($stateId == 0) {
-            return 'Assigned';
-        }
-
-        return 'Closed';
+    public function setState(ServiceRequestStateEnum $state) {
+        $this->state = $state;
     }
 
     /** Gets ticket's state.
      *
-     * @return int
+     * @return ServiceRequestStateEnum
      */
     public function getState()
     {
         return $this->state;
     }
 
-    /** Set request state
-     *
-     * @param $state string
-     */
-    public function setState($state) {
-        $state = self::STATES[$state];
-        if ($state) {
-            $this->state = $state;
-        }
-    }
+    protected $attributes = [
+        'state' => ServiceRequestStateEnum::ASSIGNED,
+    ];
+
+    protected $casts = [
+        'state' => ServiceRequestStateEnum::class,
+    ];
 
     public function ticket()
     {

@@ -212,6 +212,8 @@ return [
         'User' => App\Models\User::class, # So we can access getRoleId() in Blade templates
         'Ticket' => App\Models\Ticket::class, # So we can access getStateAsUserFriendlyString() in Blade templates
         'ServiceRequest' => App\Models\ServiceRequest::class,
+        'TicketStateEnum' => App\Enums\TicketStateEnum::class,
+        'ServiceRequestStateEnum' => App\Enums\ServiceRequestStateEnum::class,
     ])->toArray(),
 
 ];

@@ -9,7 +9,7 @@
         >{{ $ticket->title }}</h2>
 
         <!--Button to close the ticket-->
-        @if (in_array(Auth::user()->getRole(), [User::getRoleId('admin'), User::getRoleId('city_admin')]) && ($ticket->state != Ticket::getStateId('fixed')))
+        @if (in_array(Auth::user()->getRole(), [User::getRoleId('admin'), User::getRoleId('city_admin')]) && ($ticket->getState() != TicketStateEnum::FIXED))
         <div class="mt-4">
             <form method="POST" name="close_ticket_form" action="{{ route('tickets.update', $ticket->id) }}">
                 @csrf
@@ -38,13 +38,13 @@
                     <option value="" disabled selected>Select the request</option>
 
                     @foreach ($ticket->service_requests as $request)
-                        <option value="{{ route('service_requests.show', $request->id) }}">#{{ $request->id }}: {{ $request->title }} | {{ ServiceRequest::getStateAsUserFriendlyString($request->getState()) }}</option>
+                        <option value="{{ route('service_requests.show', $request->id) }}">#{{ $request->id }}: {{ $request->title }} | {{ $request->getState()->user_friendly_string() }}</option>
                     @endforeach
 
                 </select>
             </div>
 
-            @if (Auth::user()->getRole() == User::getRoleId('city_admin') && ($ticket->state != Ticket::getStateId('fixed')))
+            @if (Auth::user()->getRole() == User::getRoleId('city_admin') && ($ticket->getState() != TicketStateEnum::FIXED))
             <!--New service request-->
             <div class="mt-4">
                 <label
@@ -126,7 +126,7 @@
                     id="state"
                     name="state"
                     disabled="disabled"
-                    value="{{ Ticket::getStateAsUserFriendlyString($ticket->state) }}"
+                    value="{{ $ticket->getState()->user_friendly_string() }}"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm flex-shrink-20"
                 />
             </div>
