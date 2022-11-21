@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ServiceRequestStateEnum;
+use App\Enums\TicketStateEnum;
 use App\Models\Comment;
 use App\Models\PhotoAttachment;
 use App\Models\ServiceRequest;
@@ -105,13 +107,13 @@ class TicketController extends Controller
         if ($request->has('submit_close_ticket')) {
             $ticket = Ticket::find($id);
 
-            $ticket->state = Ticket::getStateId('fixed');
+            $ticket->setState(TicketStateEnum::FIXED);
             $ticket->save();
 
             # TODO: Is this the right way? (and effective)
             foreach ($ticket->service_requests as $sr)
             {
-                $sr->state = 1; # TODO: Method for getting state NR? ENUM?
+                $sr->setState(ServiceRequestStateEnum::CLOSED);
                 $sr->save();
             }
 

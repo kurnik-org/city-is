@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ServiceRequestStateEnum;
+use App\Enums\TicketStateEnum;
 use App\Models\ServiceRequest;
 use App\Models\Ticket;
 use App\Models\User;
@@ -52,7 +54,7 @@ class ServiceRequestController extends Controller
             $data->save();
 
             # Change state of the ticket
-            $ticket->state = Ticket::getStateId('wip');
+            $ticket->setState(TicketStateEnum::WIP);
             $ticket->save();
 
             return redirect(route('service_requests.show', $data->id));
@@ -129,11 +131,12 @@ class ServiceRequestController extends Controller
         }
         else {
             $validated = $request->validate([
-                'state'         =>  Rule::in([0, 1]),
+                'state'         =>  Rule::in([ServiceRequestStateEnum::ASSIGNED->value,
+                                              ServiceRequestStateEnum::CLOSED->value]),
                 'costs'         => 'numeric|nullable',
                 'expected_date' => 'date|nullable',
                 'notes'         => 'string|nullable']);
-            $sr->state = $validated['state'];
+            $sr->setState(ServiceRequestStateEnum::from($validated['state']));
             $sr->costs_usd = $validated['costs'];
             $sr->expected_date_of_resolution = $validated['expected_date'];
             $sr->notes = $validated['notes'];

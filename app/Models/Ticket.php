@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TicketStateEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,47 +10,21 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    public const STATES = [
-        'reported' => 0,
-        'wip' => 1,
-        'fixed' => 2,
-    ];
-
-    /** Convert string state to int.
-     *
-     * @param $state string
-     * @return int
-     */
-    public static function getStateId($state): int
-    {
-        return self::STATES[$state];
-    }
-
-    /** Get state as a user-friendly string.
-     *
-     * @param $stateId int
-     * @return string
-     */
-    public static function getStateAsUserFriendlyString($stateId): string
-    {
-        if ($stateId == 0) {
-            return 'Reported';
-        }
-
-        if ($stateId == 1) {
-            return 'Work in progress';
-        }
-
-        return 'Solved';
-    }
-
     /** Gets ticket's state.
      *
-     * @return int
+     * @return TicketStateEnum
      */
     public function getState()
     {
         return $this->state;
+    }
+
+    /** Sets ticket's state.
+     *
+     */
+    public function setState(TicketStateEnum $newState)
+    {
+        $this->state = $newState;
     }
 
     protected $fillable = [
@@ -59,7 +34,11 @@ class Ticket extends Model
     ];
 
     protected $attributes = [
-        'state' => self::STATES['reported']
+        'state' => TicketStateEnum::REPORTED,
+    ];
+
+    protected $casts = [
+        'state' => TicketStateEnum::class,
     ];
 
     public function author()
