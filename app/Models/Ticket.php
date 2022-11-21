@@ -76,4 +76,9 @@ class Ticket extends Model
     {
         return $this->morphMany('App\Models\Comment', 'commentable');
     }
+
+    public function photo_attachments()
+    {
+        return $this->hasMany(PhotoAttachment::class);
+    }
 }

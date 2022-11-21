@@ -17,6 +17,13 @@ composer install
 npm install
 ```
 
+Create simlink to the public storage folder and give appropriate read permissions to the folder.
+
+```
+php artisan storage:link
+sudo chmod 775 -R storage
+```
+
 Apply all the migrations and seed the data - you'll likely have to create `.env` file, just make sure it's never 
 committed into git repository, because it often contains data such as passwords to the database 
 and so on.

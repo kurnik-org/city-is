@@ -132,6 +132,9 @@
         <!--Description-->
         @include('common.ticket_request_description', ['label_text' => 'Original ticket content:', 'description' => $sr->ticket->title."\n-----\n".$sr->ticket->description])
 
+        <!--Photos-->
+        @include('common.ticket_request_photos', ['label_text' => 'Photo attachments:', 'photos' => $sr->ticket->photo_attachments])
+
         <!--Comments-->
         @include('common.ticket_request_comments', ['comments' => $comments, 'ticket_request' => $sr])
 

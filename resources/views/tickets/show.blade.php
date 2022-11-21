@@ -150,6 +150,9 @@
         <!--Description-->
         @include('common.ticket_request_description', ['label_text' => 'Description:', 'description' => $ticket->description])
 
+        <!--Photos-->
+        @include('common.ticket_request_photos', ['label_text' => 'Photo attachments:', 'photos' => $ticket->photo_attachments])
+
         <!--Comments-->
         @include('common.ticket_request_comments', ['comments' => $comments, 'ticket_request' => $ticket])
 
