@@ -19,7 +19,13 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $ticketsToSort = Ticket::all()->where('state','!=',2);
+        $tickets = $ticketsToSort->sortby([
+            ['state','asc'],
+            ['updated_at','asc'],
+        ]);
+
+        return view('tickets.index', ['tickets' => $tickets]);
     }
 
     /**
