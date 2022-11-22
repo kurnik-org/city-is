@@ -46,9 +46,10 @@
                     </select>
                 </div>
                 <div class="flex items-center">
-                    <label class="mr-2 w-1/2"
+                    <label class="mr-2 w-1/3"
                            for="costs"
                     >Costs:</label>
+                    <span style="padding-right:4px">$</span>
                     <input
                         type="number"
                         step=".01"
