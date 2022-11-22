@@ -59,8 +59,6 @@ class TicketController extends Controller
      */
     public function show($ticket_id)
     {
-        # TODO: Add authorization. Only citizen who started the ticket can see it?
-
         $ticket = Ticket::find($ticket_id);
 
         if (!$ticket)
