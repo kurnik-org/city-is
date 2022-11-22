@@ -17,10 +17,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $password = 'blazniveBedny';
+
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@email.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
             'role_id' => User::getRoleID('admin'),
             'created_at' => now(),
             'updated_at' => now()
@@ -29,7 +31,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'city_admin',
             'email' => 'city_admin@email.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
             'role_id' => User::getRoleID('city_admin'),
             'created_at' => now(),
             'updated_at' => now()
@@ -38,7 +40,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Chris Bacon',
             'email' => 'chris@email.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
             'role_id' => User::getRoleID('citizen'),
             'created_at' => now(),
             'updated_at' => now()
@@ -47,7 +49,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Tech1',
             'email' => 'Tech1@email.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
             'role_id' => User::getRoleID('technician'),
             'created_at' => now(),
             'updated_at' => now()
@@ -56,7 +58,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Tech2',
             'email' => 'Tech2@email.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
             'role_id' => User::getRoleID('technician'),
             'created_at' => now(),
             'updated_at' => now()
@@ -65,7 +67,7 @@ class UserSeeder extends Seeder
         $mia = new User([
             'name' => 'Mia Eggs',
             'email' => 'mia@email.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
         ]);
         $mia->setRole('citizen');
         $mia->save();
@@ -73,7 +75,7 @@ class UserSeeder extends Seeder
         $jack = new User([
             'name' => 'Jack',
             'email' => 'jack@email.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
         ]);
         $jack->setRole('technician');
         $jack->save();
@@ -81,7 +83,7 @@ class UserSeeder extends Seeder
         $zoe = new User([
             'name' => 'Zoe',
             'email' => 'zoe@email.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
         ]);
         $zoe->setRole('city_admin');
         $zoe->save();
