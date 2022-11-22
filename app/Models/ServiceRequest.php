@@ -10,9 +10,8 @@ class ServiceRequest extends Model
     use HasFactory;
 
     public const STATES = [
-        'created' => 0,
-        'assigned' => 1,
-        'closed' => 2,
+        'assigned' => 0,
+        'closed' => 1,
     ];
 
     /**
@@ -24,8 +23,32 @@ class ServiceRequest extends Model
         'city_admin_id',
         'technician_id',
         'ticket_id',
-        'description'
+        'title',
+        'state'
     ];
+
+    /** Get state as a user-friendly string.
+     *
+     * @param $stateId int
+     * @return string
+     */
+    public static function getStateAsUserFriendlyString($stateId): string
+    {
+        if ($stateId == 0) {
+            return 'Assigned';
+        }
+
+        return 'Closed';
+    }
+
+    /** Gets ticket's state.
+     *
+     * @return int
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
 
     /** Set request state
      *
