@@ -87,7 +87,6 @@
             <x-input-error :messages="$errors->get('costs')" class="mt-2" />
             <x-input-error :messages="$errors->get('expected_date')" class="mt-2" />
 
-            @if (Auth::user()->getRole() == User::getRoleId('technician'))
             <div class="mt-4">
                 <label
                     for="notes"
@@ -100,7 +99,6 @@
                 >{{ $sr->notes }}</textarea>
             </div>
             <x-input-error :messages="$errors->get('notes')" class="mt-2" />
-            @endif
 
             <div class="mt-4 space-x-2">
                 <x-primary-button>{{ __('Save') }}</x-primary-button>

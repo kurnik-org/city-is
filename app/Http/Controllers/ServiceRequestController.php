@@ -132,8 +132,10 @@ class ServiceRequestController extends Controller
         if ($request->user()->getRole() != User::getRoleId('technician'))
         {
             $validated = $request->validate([
-                'technician_id' => 'exists:App\Models\User,id']);
+                'technician_id' => 'exists:App\Models\User,id',
+                'notes'         => 'string|nullable']);
             $sr->technician_id = $validated['technician_id'];
+            $sr->notes = $validated['notes'];
         }
         else {
             $validated = $request->validate([
