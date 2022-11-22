@@ -20,11 +20,25 @@
                         {{ __('Report an issue') }}
                     </x-nav-link>
                     @endif
-                    
+
                     <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
                         {{ __('Tickets') }}
                     </x-nav-link>
-                    
+
+                    @if (in_array(Auth::user()->role_id, [User::getRoleId('city_admin'), User::getRoleId('technician')]))
+                        <x-nav-link :href="route('service_requests.index')" :active="request()->routeIs('service_requests.index')">
+                            {{ __('My service requests') }}
+                        </x-nav-link>
+                    @endif
+
+                    @if (Auth::user()->role_id == User::getRoleId('city_admin'))
+                        <x-nav-link :href="route('service_requests.index_open')" :active="request()->routeIs('service_requests.index_open')">
+                            {{ __('Open service requests') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('service_requests.index_closed')" :active="request()->routeIs('service_requests.index_closed')">
+                            {{ __('Closed service requests') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -85,11 +99,26 @@
                 {{ __('Report an issue') }}
             </x-responsive-nav-link>
             @endif
-            
+
             <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
                 {{ __('Tickets') }}
             </x-responsive-nav-link>
-            
+
+            @if (in_array(Auth::user()->role_id, [User::getRoleId('city_admin'), User::getRoleId('technician')]))
+                <x-responsive-nav-link :href="route('service_requests.index')" :active="request()->routeIs('service_requests.index')">
+                    {{ __('My service requests') }}
+                </x-responsive-nav-link>
+            @endif
+
+            @if (Auth::user()->role_id == User::getRoleId('city_admin'))
+                <x-responsive-nav-link :href="route('service_requests.index_open')" :active="request()->routeIs('service_requests.index_open')">
+                    {{ __('Open service requests') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('service_requests.index_closed')" :active="request()->routeIs('service_requests.index_closed')">
+                    {{ __('Closed service requests') }}
+                </x-responsive-nav-link>
+            @endif
+
         </div>
 
         <!-- Responsive Settings Options -->
