@@ -26,7 +26,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('tickets', TicketController::class)
-    ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
+    ->only(['index', 'create', 'store', 'show', 'update'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('comments', CommentController::class)
