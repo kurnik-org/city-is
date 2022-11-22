@@ -20,6 +20,11 @@
                         {{ __('Report an issue') }}
                     </x-nav-link>
                     @endif
+                    
+                    <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
+                        {{ __('Tickets') }}
+                    </x-nav-link>
+                    
                 </div>
             </div>
 
@@ -80,6 +85,11 @@
                 {{ __('Report an issue') }}
             </x-responsive-nav-link>
             @endif
+            
+            <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
+                {{ __('Tickets') }}
+            </x-responsive-nav-link>
+            
         </div>
 
         <!-- Responsive Settings Options -->

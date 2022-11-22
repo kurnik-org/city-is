@@ -19,7 +19,13 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $ticketsToSort = Ticket::all()->where('state','!=',TicketStateEnum::FIXED);
+        $tickets = $ticketsToSort->sortby([
+            ['state','asc'],
+            ['updated_at','asc'],
+        ]);
+
+        return view('tickets.index', ['tickets' => $tickets]);
     }
 
     /**
