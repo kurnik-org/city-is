@@ -8,6 +8,7 @@ use App\Models\ServiceRequest;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class ServiceRequestController extends Controller
@@ -19,7 +20,41 @@ class ServiceRequestController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('index', ServiceRequest::class);
+
+        $service_requests = Auth::user()->service_requests()
+            ->orderby('updated_at', 'desc')
+            ->paginate(5);
+
+        return view('service_requests.index', [
+            'service_requests' => $service_requests,
+        ]);
+    }
+
+    public function index_open()
+    {
+        $this->authorize('index_open_closed', ServiceRequest::class);
+
+        $service_requests = ServiceRequest::where('state', ServiceRequestStateEnum::ASSIGNED)
+            ->orderby('updated_at', 'desc')
+            ->paginate(5);
+
+        return view('service_requests.index', [
+            'service_requests' => $service_requests,
+        ]);
+    }
+
+    public function index_closed()
+    {
+        $this->authorize('index_open_closed', ServiceRequest::class);
+
+        $service_requests = ServiceRequest::where('state', ServiceRequestStateEnum::CLOSED)
+            ->orderby('updated_at', 'desc')
+            ->paginate(5);
+
+        return view('service_requests.index', [
+            'service_requests' => $service_requests,
+        ]);
     }
 
     /**

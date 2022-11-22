@@ -108,9 +108,9 @@ class User extends Authenticatable
     public function service_requests()
     {
         if ($this->role_id == self::getRoleId('technician')) {
-            return $this->hasOne(ServiceRequest::class, 'technician_id', 'id');
+            return $this->hasMany(ServiceRequest::class, 'technician_id', 'id');
         } else {
-            return $this->hasOne(ServiceRequest::class, 'city_admin_id', 'id');
+            return $this->hasMany(ServiceRequest::class, 'city_admin_id', 'id');
         }
     }
 

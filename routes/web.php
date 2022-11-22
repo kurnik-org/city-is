@@ -33,8 +33,14 @@ Route::resource('comments', CommentController::class)
     ->only(['store'])
     ->middleware(['auth', 'verified']);
 
+Route::get('open-service-requests', [ServiceRequestController::class, 'index_open'])
+    ->name('service_requests.index_open');
+
+Route::get('closed-service-requests', [ServiceRequestController::class, 'index_closed'])
+    ->name('service_requests.index_closed');
+
 Route::resource('service_requests', ServiceRequestController::class)
-    ->only(['store', 'show', 'edit', 'update'])
+    ->only(['index', 'store', 'show', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
