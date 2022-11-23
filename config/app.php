@@ -210,6 +210,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'User' => App\Models\User::class, # So we can access getRoleId() in Blade templates
+        'UserSeeder' => \Database\Seeders\UserSeeder::class, # for access to never_delete_user_ids() in Blade templates
         'Ticket' => App\Models\Ticket::class, # So we can access getStateAsUserFriendlyString() in Blade templates
         'ServiceRequest' => App\Models\ServiceRequest::class,
         'TicketStateEnum' => App\Enums\TicketStateEnum::class,
