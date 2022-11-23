@@ -79,3 +79,15 @@ npm run build
 ```
 
 as mentioned in [the deployment section](https://bootcamp.laravel.com/deploying) of Laravel Bootcamp.
+
+Currently, [the Laravel Droplet](https://marketplace.digitalocean.com/apps/laravel) is using PHP 8.0 by default.
+To update to 8.1, download all the necessary packages by running
+
+```
+sudo apt-get php8.1-fpm -y
+sudo apt-get install php8.1-common php8.1-mysql php8.1-xml php8.1-xmlrpc php8.1-curl php8.1-gd php8.1-imagick php8.1-cli
+ php8.1-dev php8.1-imap php8.1-mbstring php8.1-opcache php8.1-soap php8.1-zip php8.1-intl -y 
+```
+
+Change the PHP version used by nginx by modifying the file `/etc/nginx/sites-enabled/laravel` and restart the nginx service
+(`service nginx restart`).
