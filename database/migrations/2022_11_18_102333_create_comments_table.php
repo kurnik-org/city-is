@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('author_id')->constrained('users');
+            $table->foreignId('author_id')->nullable()->default(2)->constrained('users')->onDelete('set default');
             $table->morphs('commentable');
             $table->string('text');
             $table->timestamps();

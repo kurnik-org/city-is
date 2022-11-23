@@ -39,6 +39,12 @@
                             {{ __('Closed service requests') }}
                         </x-nav-link>
                     @endif
+
+                    @if (in_array(Auth::user()->role_id, [User::getRoleId('admin'), User::getRoleId('city_admin')]))
+                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                            {{ __('User management') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -119,6 +125,11 @@
                 </x-responsive-nav-link>
             @endif
 
+            @if (in_array(Auth::user()->role_id, [User::getRoleId('admin'), User::getRoleId('city_admin')]))
+                <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                    {{ __('User management') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

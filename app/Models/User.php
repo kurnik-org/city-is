@@ -57,7 +57,7 @@ class User extends Authenticatable
     public function setRole($role)
     {
         $roleId = self::getRoleId($role);
-        if ($roleId) {
+        if (!is_null($roleId)) {
             $this->role_id = $roleId;
         }
     }
@@ -69,6 +69,30 @@ class User extends Authenticatable
     public function getRole()
     {
         return $this->role_id;
+    }
+
+    public function getRoleAsString() {
+        return array_search($this->role_id, self::ROLES);
+    }
+
+    /** Is administrator of the information system? */
+    public function is_admin(): bool
+    {
+        if ($this->role_id == self::getRoleId('admin')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /** Is city administrator? */
+    public function is_city_admin(): bool
+    {
+        if ($this->role_id == self::getRoleId('city_admin')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

@@ -16,9 +16,9 @@ return new class extends Migration
     {
         Schema::create('service_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('city_admin_id')->nullable()->constrained('users');
-            $table->foreignId('technician_id')->nullable()->constrained('users');
-            $table->foreignId('ticket_id')->constrained('tickets');
+            $table->foreignId('city_admin_id')->nullable()->default(1)->constrained('users')->onDelete('set default');
+            $table->foreignId('technician_id')->nullable()->default(2)->constrained('users')->onDelete('set default');
+            $table->foreignId('ticket_id')->constrained('tickets')->cascadeOnDelete();
             $table->string('title');
             $table->integer('state');
             $table->double('costs_usd')->nullable();

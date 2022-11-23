@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceRequestController;
@@ -41,6 +42,10 @@ Route::get('closed-service-requests', [ServiceRequestController::class, 'index_c
 
 Route::resource('service_requests', ServiceRequestController::class)
     ->only(['index', 'store', 'show', 'edit', 'update'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('admin', AdminController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
+
+    public static function never_delete_user_ids() {
+        return [0, 1, 2];
+    }
     /**
      * Run the database seeds.
      *
@@ -18,6 +22,37 @@ class UserSeeder extends Seeder
     public function run()
     {
         $password = 'blazniveBedny';
+
+        // These seeds are critically important - it's set in onDelete actions in Ticket, ServiceRequest and so on.
+        // Do NOT delete and keep id set to 0.
+        DB::table('users')->insert([
+            'id' => 0,
+            'name' => '[deleted]',
+            'email' => 'deletedcitizen@ourdomain.org',
+            'password' => Hash::make($password),
+            'role_id' => User::getRoleID('citizen'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('users')->insert([
+            'id' => 1,
+            'name' => '[deleted]',
+            'email' => 'deletedcityadmin@ourdomain.org',
+            'password' => Hash::make($password),
+            'role_id' => User::getRoleID('city_admin'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('users')->insert([
+            'id' => 2,
+            'name' => '[deleted]',
+            'email' => 'deletedtechnician@ourdomain.org',
+            'password' => Hash::make($password),
+            'role_id' => User::getRoleID('technician'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        // End of important seeds
 
         DB::table('users')->insert([
             'name' => 'admin',
@@ -87,5 +122,15 @@ class UserSeeder extends Seeder
         ]);
         $zoe->setRole('city_admin');
         $zoe->save();
+
+        for ($i = 0; $i < 20; $i++) {
+            $user = new User([
+                'name' => "User$i",
+                'email' => "user$i@email.com",
+                'password' => Hash::make($password),
+            ]);
+            $user->setRole('citizen');
+            $user->save();
+        }
     }
 }
