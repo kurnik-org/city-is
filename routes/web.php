@@ -29,6 +29,12 @@ Route::resource('tickets', TicketController::class)
     ->only(['index', 'create', 'store', 'show', 'update'])
     ->middleware(['auth', 'verified']);
 
+Route::get('open-tickets', [TicketController::class, 'index_open'])
+    ->name('tickets.index_open');
+
+Route::get('closed-tickets', [TicketController::class, 'index_closed'])
+    ->name('tickets.index_closed');
+
 Route::resource('comments', CommentController::class)
     ->only(['store'])
     ->middleware(['auth', 'verified']);
