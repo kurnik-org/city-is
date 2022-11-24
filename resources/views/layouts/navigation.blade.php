@@ -16,13 +16,21 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if (Auth::user()->role_id == User::getRoleId('citizen'))
-                    <x-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
-                        {{ __('Report an issue') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
+                            {{ __('Report an issue') }}
+                        </x-nav-link>
+                        
+                        <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
+                            {{ __('My tickets') }}
+                        </x-nav-link>
                     @endif
 
-                    <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
-                        {{ __('Tickets') }}
+                    <x-nav-link :href="route('tickets.index_open')" :active="request()->routeIs('tickets.index_open')">
+                        {{ __('Open tickets') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('tickets.index_closed')" :active="request()->routeIs('tickets.index_closed')">
+                        {{ __('Closed tickets') }}
                     </x-nav-link>
 
                     @if (in_array(Auth::user()->role_id, [User::getRoleId('city_admin'), User::getRoleId('technician')]))
@@ -95,13 +103,21 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @if (Auth::user()->role_id == User::getRoleId('citizen'))
-            <x-responsive-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
-                {{ __('Report an issue') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
+                    {{ __('Report an issue') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
+                    {{ __('My tickets') }}
+                </x-responsive-nav-link>
             @endif
 
-            <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
-                {{ __('Tickets') }}
+            <x-responsive-nav-link :href="route('tickets.index_open')" :active="request()->routeIs('tickets.index_open')">
+                {{ __('Open tickets') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('tickets.index_closed')" :active="request()->routeIs('tickets.index_closed')">
+                {{ __('Closed tickets') }}
             </x-responsive-nav-link>
 
             @if (in_array(Auth::user()->role_id, [User::getRoleId('city_admin'), User::getRoleId('technician')]))

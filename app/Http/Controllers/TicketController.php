@@ -9,6 +9,7 @@ use App\Models\PhotoAttachment;
 use App\Models\ServiceRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
@@ -19,13 +20,39 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $ticketsToSort = Ticket::all()->where('state','!=',TicketStateEnum::FIXED);
-        $tickets = $ticketsToSort->sortby([
-            ['state','asc'],
-            ['updated_at','asc'],
-        ]);
+        $tickets = Auth::user()->tickets()
+            ->orderby('updated_at', 'desc')
+            ->paginate(5);
 
         return view('tickets.index', ['tickets' => $tickets]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_open()
+    {
+        $tickets = Ticket::where('state', '!=', TicketStateEnum::FIXED)
+            ->orderby('updated_at', 'desc')
+            ->paginate(5);
+
+        return view('tickets.index_open', ['tickets' => $tickets]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_closed()
+    {
+        $tickets = Ticket::where('state',TicketStateEnum::FIXED)
+            ->orderby('updated_at', 'desc')
+            ->paginate(5);
+
+        return view('tickets.index_closed', ['tickets' => $tickets]);
     }
 
     /**
