@@ -5,16 +5,6 @@
             <div class="flex">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @if (Auth::user()->role_id == User::getRoleId('citizen'))
-                        <x-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
-                            {{ __('Report an issue') }}
-                        </x-nav-link>
-
-                        <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
-                            {{ __('My tickets') }}
-                        </x-nav-link>
-                    @endif
-
                     <x-nav-link :href="route('tickets.index_open')" :active="request()->routeIs('tickets.index_open')">
                         {{ __('Open tickets') }}
                     </x-nav-link>
@@ -22,6 +12,16 @@
                     <x-nav-link :href="route('tickets.index_closed')" :active="request()->routeIs('tickets.index_closed')">
                         {{ __('Closed tickets') }}
                     </x-nav-link>
+
+                    @if (Auth::user()->role_id == User::getRoleId('citizen'))
+                        <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
+                            {{ __('My tickets') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
+                            {{ __('Report an issue') }}
+                        </x-nav-link>
+                    @endif
 
                     @if (in_array(Auth::user()->role_id, [User::getRoleId('city_admin'), User::getRoleId('technician')]))
                         <x-nav-link :href="route('service_requests.index')" :active="request()->routeIs('service_requests.index')">
@@ -95,16 +95,6 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            @if (Auth::user()->role_id == User::getRoleId('citizen'))
-                <x-responsive-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
-                    {{ __('Report an issue') }}
-                </x-responsive-nav-link>
-
-                <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
-                    {{ __('My tickets') }}
-                </x-responsive-nav-link>
-            @endif
-
             <x-responsive-nav-link :href="route('tickets.index_open')" :active="request()->routeIs('tickets.index_open')">
                 {{ __('Open tickets') }}
             </x-responsive-nav-link>
@@ -112,6 +102,16 @@
             <x-responsive-nav-link :href="route('tickets.index_closed')" :active="request()->routeIs('tickets.index_closed')">
                 {{ __('Closed tickets') }}
             </x-responsive-nav-link>
+
+            @if (Auth::user()->role_id == User::getRoleId('citizen'))
+                <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
+                    {{ __('My tickets') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')">
+                    {{ __('Report an issue') }}
+                </x-responsive-nav-link>
+            @endif
 
             @if (in_array(Auth::user()->role_id, [User::getRoleId('city_admin'), User::getRoleId('technician')]))
                 <x-responsive-nav-link :href="route('service_requests.index')" :active="request()->routeIs('service_requests.index')">
