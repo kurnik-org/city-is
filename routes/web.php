@@ -22,10 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::resource('tickets', TicketController::class)
     ->only(['index', 'create', 'store', 'show', 'update'])
     ->middleware(['auth', 'verified']);
