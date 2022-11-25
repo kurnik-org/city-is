@@ -25,7 +25,7 @@ class CommentSeeder extends Seeder
         $s = $t->service_requests()->first();
         $s->comments()->save(new Comment([
             'author_id' => User::where('email', 'jack@email.com')->first()->id,
-            'text' => "Wanting for a light bulb to arrive, we didn't have any in stock",
+            'text' => "Waiting for a light bulb to arrive, we didn't have any in stock",
         ]));
     }
 }
