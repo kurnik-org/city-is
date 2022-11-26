@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::resource('tickets', TicketController::class)
@@ -27,20 +27,24 @@ Route::resource('tickets', TicketController::class)
     ->middleware(['auth', 'verified']);
 
 Route::get('open-tickets', [TicketController::class, 'index_open'])
-    ->name('tickets.index_open');
+    ->name('tickets.index_open')
+    ->middleware('auth');
 
 Route::get('closed-tickets', [TicketController::class, 'index_closed'])
-    ->name('tickets.index_closed');
+    ->name('tickets.index_closed')
+    ->middleware('auth');
 
 Route::resource('comments', CommentController::class)
     ->only(['store'])
     ->middleware(['auth', 'verified']);
 
 Route::get('open-service-requests', [ServiceRequestController::class, 'index_open'])
-    ->name('service_requests.index_open');
+    ->name('service_requests.index_open')
+    ->middleware('auth');
 
 Route::get('closed-service-requests', [ServiceRequestController::class, 'index_closed'])
-    ->name('service_requests.index_closed');
+    ->name('service_requests.index_closed')
+    ->middleware('auth');
 
 Route::resource('service_requests', ServiceRequestController::class)
     ->only(['index', 'store', 'show', 'edit', 'update'])
