@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Ticket;
 use App\Models\User;
+use App\Enums\TicketStateEnum;
 use Illuminate\Database\Seeder;
 
 class TicketSeeder extends Seeder
@@ -34,6 +35,7 @@ class TicketSeeder extends Seeder
             ]
         );
         $litter->author_id = $chris->id;
+        $litter->setState(TicketStateEnum::FIXED);
         $litter->save();
 
         $sign = new Ticket(
