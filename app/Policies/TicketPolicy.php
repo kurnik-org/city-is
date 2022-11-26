@@ -22,6 +22,17 @@ class TicketPolicy
     }
 
     /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function index(User $user)
+    {
+        return $user->role_id == User::getRoleId('citizen');
+    }
+
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user

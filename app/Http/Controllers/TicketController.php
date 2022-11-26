@@ -20,6 +20,8 @@ class TicketController extends Controller
      */
     public function index()
     {
+        $this->authorize('index', Ticket::class);
+
         $tickets = Auth::user()->tickets()
             ->orderby('updated_at', 'desc')
             ->paginate(5);
