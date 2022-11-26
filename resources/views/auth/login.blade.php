@@ -1,5 +1,21 @@
 <x-guest-layout>
     <x-auth-card>
+        <x-slot name="title">
+            <h1 class="pn-6 font-serif text-3xl text-center">
+                <div>Welcome</div>
+                <div>to</div>
+                <div class="text-6xl text-extrabold">Smart City</div>
+
+                <img class="mx-auto pb-10" src="https://www.transparentpng.com/thumb/city/splash-black-white-city-background-transparent-JF7orV.png" alt="splash black white city background transparent @transparentpng.com">
+                
+            </h1>            
+
+            <div class="pb-6 text-2xl font-serif text-center text-gray-900 px-6 col-span-2">
+                Fixing your problems for a better tomorrow.
+            </div>
+           
+            
+        </x-slot>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
