@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->middleware('guest');
 
 Route::resource('tickets', TicketController::class)
     ->only(['index', 'create', 'store', 'show', 'update'])
