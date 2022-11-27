@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserSeederEnum;
 use App\Exceptions\DeleteUserException;
+use App\Models\ServiceRequest;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
