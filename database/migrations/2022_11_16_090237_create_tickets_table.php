@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->foreignId('author_id')->nullable()->default(UserSeederEnum::CITIZEN)->constrained('users')->onDelete('set default');
+            $table->foreignId('author_id')->nullable()->default(UserSeederEnum::CITIZEN->value)->constrained('users')->onDelete('set default');
             $table->integer('state');
             $table->timestamps();
         });

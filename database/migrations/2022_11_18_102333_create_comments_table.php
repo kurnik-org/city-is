@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('author_id')->nullable()->default(UserSeederEnum::TECHNICIAN)->constrained('users')->onDelete('set default');
+            $table->foreignId('author_id')->nullable()->default(UserSeederEnum::TECHNICIAN->value)->constrained('users')->onDelete('set default');
             $table->morphs('commentable');
             $table->string('text');
             $table->timestamps();

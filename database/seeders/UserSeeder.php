@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
 {
 
     public static function never_delete_user_ids() {
-        return [UserSeederEnum::CITIZEN, UserSeederEnum::CITY_ADMIN, UserSeederEnum::TECHNICIAN];
+        return [UserSeederEnum::CITIZEN->value, UserSeederEnum::CITY_ADMIN->value, UserSeederEnum::TECHNICIAN->value];
     }
     /**
      * Run the database seeds.
