@@ -21,7 +21,7 @@
                     <label
                         for="technician_id"
                         class="mr-2 w-1/2"
-                    >Technician:</label>
+                    > Technician:@include('common.required_asterisk')</label>
                     <select
                         name="technician_id"
                         id="technician_id"
@@ -36,7 +36,7 @@
                     <label
                         for="state"
                         class="mr-2 w-1/2"
-                    >State:</label>
+                    >State: @include('common.required_asterisk')</label>
                     <select
                         name="state"
                         id="state"
@@ -100,6 +100,8 @@
                 >{{ $sr->notes }}</textarea>
             </div>
             <x-input-error :messages="$errors->get('notes')" class="mt-2" />
+
+            @include('common.required_description')
 
             <div class="mt-4 space-x-2">
                 <x-primary-button>{{ __('Save') }}</x-primary-button>

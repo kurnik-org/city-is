@@ -49,7 +49,7 @@
             <div class="mt-4">
                 <label
                     for="new_request_form"
-                >New service request</label>
+                >New service request (both are required):</label>
                 @if (count(ServiceRequest::where('ticket_id', $ticket->id)->get()) > 0)
                     <p class="text-red-700">One or more requests for this ticket already exist.
                         Add new request only if needed.</p>
