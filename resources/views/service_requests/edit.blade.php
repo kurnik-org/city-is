@@ -27,7 +27,9 @@
                         id="technician_id"
                         class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm flex-shrink-20">
                         @foreach (User::where('role_id', User::getRoleId('technician'))->get() as $technician)
-                            <option value="{{ $technician->id }}" <?php echo ($technician->id == $sr->technician_id)?"selected":""; ?>>#{{ $technician->id }}: {{ $technician->name }} </option>
+                            @if ($technician->name != "[deleted]")
+                                <option value="{{ $technician->id }}" <?php echo ($technician->id == $sr->technician_id)?"selected":""; ?>>#{{ $technician->id }}: {{ $technician->name }} </option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

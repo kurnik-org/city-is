@@ -72,7 +72,9 @@
                         <option value="" disabled selected>Select a technician</option>
 
                         @foreach (User::where('role_id', User::getRoleId('technician'))->get() as $technician)
-                            <option value="{{ $technician->id }}">#{{ $technician->id }}: {{ $technician->name }} </option>
+                            @if ($technician->name != "[deleted]")
+                                <option value="{{ $technician->id }}">#{{ $technician->id }}: {{ $technician->name }} </option>
+                            @endif
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('technician_id')" class="mt-2" />
