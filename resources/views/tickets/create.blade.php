@@ -13,6 +13,7 @@
                 <label
                     for="title"
                     >Title:</label>
+                @include('common.required_asterisk')
                 <input
                     type="text"
                     id="title"
@@ -29,6 +30,7 @@
                 <label
                     for="description"
                 >Description:</label>
+                @include('common.required_asterisk')
                 <textarea
                     id="description"
                     name="description"
@@ -53,6 +55,8 @@
                     multiple
                 >
             </div>
+
+            @include('common.required_description')
 
             <div class="mt-4 space-x-2">
                 <x-primary-button>{{ __('Report') }}</x-primary-button>
