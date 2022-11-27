@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         // These seeds are critically important - it's set in onDelete actions in Ticket, ServiceRequest and so on.
         // Do NOT delete and keep id set to 0.
         DB::table('users')->insert([
-            'id' => UserSeederEnum::CITIZEN,
+            'id' => UserSeederEnum::CITIZEN->value,
             'name' => '[deleted]',
             'email' => 'deletedcitizen@ourdomain.org',
             'password' => Hash::make($password),
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             'updated_at' => now()
         ]);
         DB::table('users')->insert([
-            'id' => UserSeederEnum::CITY_ADMIN,
+            'id' => UserSeederEnum::CITY_ADMIN->value,
             'name' => '[deleted]',
             'email' => 'deletedcityadmin@ourdomain.org',
             'password' => Hash::make($password),
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
             'updated_at' => now()
         ]);
         DB::table('users')->insert([
-            'id' => UserSeederEnum::TECHNICIAN,
+            'id' => UserSeederEnum::TECHNICIAN->value,
             'name' => '[deleted]',
             'email' => 'deletedtechnician@ourdomain.org',
             'password' => Hash::make($password),

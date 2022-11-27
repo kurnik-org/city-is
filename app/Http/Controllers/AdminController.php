@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\UserSeederEnum;
 use App\Exceptions\DeleteUserException;
+use App\Models\Comment;
 use App\Models\ServiceRequest;
 use App\Models\Ticket;
 use App\Models\User;
@@ -44,6 +45,18 @@ class AdminController extends Controller
                     'Cannot delete the last admin in the system.', 409);
             }
         }
+        // The following is here because while it works in my local SQLite without these lines
+        // (using default values defined in schema), it doesn't work without it on the server
+        // which is using MySQL - even though it should work
+        Comment::where('author_id', $delete_user_id)
+            ->update(['author_id' => UserSeederEnum::TECHNICIAN->value]);
+        Ticket::where('author_id', $delete_user_id)
+            ->update(['author_id' => UserSeederEnum::CITIZEN->value]);
+        ServiceRequest::where('technician_id', $delete_user_id)
+            ->update(['technician_id' => UserSeederEnum::TECHNICIAN->value]);
+        ServiceRequest::where('city_admin_id', $delete_user_id)
+            ->update(['city_admin_id' => UserSeederEnum::CITY_ADMIN->value]);
+
         User::where('id', $delete_user_id)->first()->delete();
         return redirect(route('admin.index'));
     }
