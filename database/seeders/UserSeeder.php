@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
 {
 
     public static function never_delete_user_ids() {
-        return [0, 1, 2];
+        return [1, 2, 3];
     }
     /**
      * Run the database seeds.
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         // These seeds are critically important - it's set in onDelete actions in Ticket, ServiceRequest and so on.
         // Do NOT delete and keep id set to 0.
         DB::table('users')->insert([
-            'id' => 0,
+            'id' => 1,
             'name' => '[deleted]',
             'email' => 'deletedcitizen@ourdomain.org',
             'password' => Hash::make($password),
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'updated_at' => now()
         ]);
         DB::table('users')->insert([
-            'id' => 1,
+            'id' => 2,
             'name' => '[deleted]',
             'email' => 'deletedcityadmin@ourdomain.org',
             'password' => Hash::make($password),
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             'updated_at' => now()
         ]);
         DB::table('users')->insert([
-            'id' => 2,
+            'id' => 3,
             'name' => '[deleted]',
             'email' => 'deletedtechnician@ourdomain.org',
             'password' => Hash::make($password),
