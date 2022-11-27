@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserSeederEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->foreignId('author_id')->nullable()->default(0)->constrained('users')->onDelete('set default');
+            $table->foreignId('author_id')->nullable()->default(UserSeederEnum::CITIZEN->value)->constrained('users')->onDelete('set default');
             $table->integer('state');
             $table->timestamps();
         });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserSeederEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('author_id')->nullable()->default(2)->constrained('users')->onDelete('set default');
+            $table->foreignId('author_id')->nullable()->default(UserSeederEnum::TECHNICIAN->value)->constrained('users')->onDelete('set default');
             $table->morphs('commentable');
             $table->string('text');
             $table->timestamps();
