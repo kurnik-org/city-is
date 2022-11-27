@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserSeederEnum;
 use App\Models\User;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
@@ -12,7 +13,7 @@ class UserSeeder extends Seeder
 {
 
     public static function never_delete_user_ids() {
-        return [1, 2, 3];
+        return [UserSeederEnum::CITIZEN, UserSeederEnum::CITY_ADMIN, UserSeederEnum::TECHNICIAN];
     }
     /**
      * Run the database seeds.
@@ -26,7 +27,7 @@ class UserSeeder extends Seeder
         // These seeds are critically important - it's set in onDelete actions in Ticket, ServiceRequest and so on.
         // Do NOT delete and keep id set to 0.
         DB::table('users')->insert([
-            'id' => 1,
+            'id' => UserSeederEnum::CITIZEN,
             'name' => '[deleted]',
             'email' => 'deletedcitizen@ourdomain.org',
             'password' => Hash::make($password),
@@ -35,7 +36,7 @@ class UserSeeder extends Seeder
             'updated_at' => now()
         ]);
         DB::table('users')->insert([
-            'id' => 2,
+            'id' => UserSeederEnum::CITY_ADMIN,
             'name' => '[deleted]',
             'email' => 'deletedcityadmin@ourdomain.org',
             'password' => Hash::make($password),
@@ -44,7 +45,7 @@ class UserSeeder extends Seeder
             'updated_at' => now()
         ]);
         DB::table('users')->insert([
-            'id' => 3,
+            'id' => UserSeederEnum::TECHNICIAN,
             'name' => '[deleted]',
             'email' => 'deletedtechnician@ourdomain.org',
             'password' => Hash::make($password),
