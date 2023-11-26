@@ -17,7 +17,7 @@ composer install
 npm install
 ```
 
-Create simlink to the public storage folder and give appropriate read permissions to the folder.
+Create symlink to the public storage folder and give appropriate read permissions to the folder.
 
 ```
 php artisan storage:link
